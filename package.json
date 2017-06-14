@@ -1,6 +1,14 @@
 {
-  "name": "open-municipality2",
+  "name": "open-municipality",
   "version": "0.0.0",
+  "author": "Andrea SonnY <andreasonny83@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasonny83/open-municipality"
+  },
+  "bugs": {
+    "url": "https://github.com/andreasonny83/open-municipality/issues"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",
