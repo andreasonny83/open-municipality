@@ -7,12 +7,16 @@ import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
+    canActivate: [AuthGuard],
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
+      { path: '', component: HomePageComponent },
+      // { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
-  }
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

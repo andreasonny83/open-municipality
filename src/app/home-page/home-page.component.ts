@@ -26,6 +26,6 @@ export class HomePageComponent implements OnInit {
   logoutHandler() {
     console.log('logged out');
 
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 }
