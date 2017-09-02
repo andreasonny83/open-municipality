@@ -1,55 +1,56 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AuthService {
-  private authState: Observable<firebase.User>;
-  private currentUser: firebase.User;
+  public user: Observable<firebase.User>;
+  public userDetails: firebase.User;
 
   constructor(
-    public afAuth: AngularFireAuth,
+    private firebaseAuth: AngularFireAuth,
+    private router: Router,
   ) {
-    this.authState = this.afAuth.authState;
+    this.user = firebaseAuth.authState;
+    this.userDetails = null;
 
-    this.authState
-      .subscribe((user: firebase.User) => this.getUser(user));
+    firebaseAuth.authState.subscribe(
+      (user: firebase.User) => this.handleFireBaseUser(user),
+      (err: any) => this.resetFirebaseUser(),
+    );
   }
 
-  getUser(user: firebase.User): void {
-    console.log('user', user);
+  handleFireBaseUser(user: firebase.User) {
+    console.log('user status changed', user);
+
+    this.userDetails = null;
 
     if (!!user) {
-      console.log('setting user');
-
-      this.currentUser = user;
+      this.userDetails = user;
       return;
     }
 
-    this.currentUser = null;
+    this.resetFirebaseUser();
   }
 
-  isLoggedIn() {
-    if (this.currentUser == null) {
-      return false;
-    }
+  resetFirebaseUser(): void {
+    console.log('logging out');
 
-    return true;
+    this.userDetails = null;
+
+    this.router.navigate(['/login']);
   }
 
-  loginWithGoogle() {
-    return this.afAuth
-      .auth
-      .signInWithPopup(
-        new firebase.auth.GoogleAuthProvider());
+  signInWithGoogle(): firebase.Promise<any> {
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
   }
 
-  getAuthState(): Observable<firebase.User> {
-    return this.authState;
-  }
-
-  logout() {
-    this.afAuth.auth.signOut();
+  signOut(): firebase.Promise<any> {
+    return this.firebaseAuth.auth.signOut();
   }
 }
