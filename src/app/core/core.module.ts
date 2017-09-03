@@ -15,11 +15,6 @@ import { AuthService, AuthServiceConfig } from './auth.service';
 
 import { environment } from 'environments/environment';
 
-interface IModule {
-  ngModule: any;
-  providers?: any;
-}
-
 @NgModule({
   imports: [
     CommonModule,

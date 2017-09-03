@@ -1,7 +1,9 @@
+<app-toolbar appTitle="{{ appTitle }}"></app-toolbar>
+
 <h1>
-  Welcome to {{title}}!
+  Welcome to {{ appTitle }}!
 </h1>
 
 <button (click)="loginWithGoogle()"
-        md-raised-button
-        color="primary">Login with Google</button>
+        color="primary"
+        md-raised-button>Login with Google</button>

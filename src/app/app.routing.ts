@@ -3,7 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 // import { AuthGuard } from './shared/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'home', loadChildren: './home/home.module#HomeModule' },
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule',
+    data: { preload: true },
+  },
   { path: 'login', loadChildren: './login/login.module#LoginModule' },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },

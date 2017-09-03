@@ -1,4 +1,8 @@
 <app-toolbar appTitle="{{ appTitle }}"
-             (onLogout)="logout()"></app-toolbar>
+             (onLogout)="logout()"
+             isSignedIn>
+  <a routerLink="/home/workshop">Workshop</a>
+  <a routerLink="/home/search">Search</a>
+</app-toolbar>
 
 <router-outlet></router-outlet>

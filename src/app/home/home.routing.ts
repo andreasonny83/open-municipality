@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './home-page.component';
 import { WorkshopComponent } from '../workshop/workshop.component';
+// import { SearchComponent } from '../search/search.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,7 @@ const routes: Routes = [
     component: HomePageComponent,
     children: [
       { path: 'workshop', component: WorkshopComponent },
+      // { path: 'search', component: SearchComponent },
     ]
   },
   { path: '**', redirectTo: '' },

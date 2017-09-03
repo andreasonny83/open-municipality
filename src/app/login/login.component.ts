@@ -9,7 +9,7 @@ import * as firebase from 'firebase';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public title: string;
+  public appTitle: string;
 
   constructor(
     private auth: AuthService,
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title = this.auth.appName;
+    this.appTitle = this.auth.appName;
 
     this.auth
       .user

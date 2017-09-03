@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -11,11 +12,17 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private route: ActivatedRoute,
   ) {
     this.appTitle = auth.appName;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.data
+    .subscribe((data) => {
+      console.log('data', data);
+    });
+  }
 
   logout() {
     this.auth.signOut();
