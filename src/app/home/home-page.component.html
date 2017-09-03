@@ -1,17 +1,4 @@
-<md-toolbar color="primary">
-  <span>{{ appTitle }}</span>
+<app-toolbar appTitle="{{ appTitle }}"
+             (onLogout)="logout()"></app-toolbar>
 
-  <md-toolbar-row>
-    <span>Second Line</span>
-    <span class="toolbar-spacer"></span>
-    <button (click)="logout()"
-            md-button>Log out</button>
-  </md-toolbar-row>
-
-  <md-toolbar-row>
-    <span>Third Line</span>
-    <span class="example-spacer"></span>
-    <md-icon class="example-icon">favorite</md-icon>
-    <md-icon class="example-icon">delete</md-icon>
-  </md-toolbar-row>
-</md-toolbar>
+<router-outlet></router-outlet>

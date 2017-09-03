@@ -15,6 +15,11 @@ import { AuthService, AuthServiceConfig } from './auth.service';
 
 import { environment } from 'environments/environment';
 
+interface IModule {
+  ngModule: any;
+  providers?: any;
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +34,6 @@ import { environment } from 'environments/environment';
   ],
 })
 export class CoreModule {
-
     constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
       if (parentModule) {
         throw new Error(
@@ -37,12 +41,12 @@ export class CoreModule {
       }
     }
 
-    static forRoot(config: AuthServiceConfig): ModuleWithProviders {
-      return {
-        ngModule: CoreModule,
-        providers: [
-          {provide: AuthServiceConfig, useValue: config }
-        ]
-      };
-    }
+  static forRoot(config: AuthServiceConfig): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        { provide: AuthServiceConfig, useValue: config }
+      ]
+    };
   }
+}

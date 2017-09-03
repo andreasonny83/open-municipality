@@ -7,10 +7,14 @@ import {
   MdToolbarModule,
   MdIconModule,
 } from '@angular/material';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { WorkshopComponent } from '../workshop/workshop.component';
 
 @NgModule({
   declarations: [
     HomePageComponent,
+    ToolbarComponent,
+    WorkshopComponent,
   ],
   imports: [
     CommonModule,

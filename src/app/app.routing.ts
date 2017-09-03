@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginModule' },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // { path: '**', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
