@@ -1,19 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
-import 'rxjs/add/observable/of';
+
+export class AuthServiceConfig {
+  appName = 'Awesome app';
+}
 
 @Injectable()
 export class AuthService {
   public user: Observable<firebase.User>;
   public userDetails: firebase.User;
+  public appName: string;
 
   constructor(
+    @Optional() config: AuthServiceConfig,
     private firebaseAuth: AngularFireAuth,
     private router: Router,
   ) {
+    if (config) {
+      this.appName = config.appName;
+    }
+
     this.user = firebaseAuth.authState;
     this.userDetails = null;
 
@@ -36,7 +45,11 @@ export class AuthService {
     this.resetFirebaseUser();
   }
 
-  resetFirebaseUser(): void {
+  resetFirebaseUser(err?): void {
+    if (err) {
+      console.log('error', err);
+    }
+
     console.log('logging out');
 
     this.userDetails = null;

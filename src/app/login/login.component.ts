@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../core/auth.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   public title: string;
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title = 'Open Municipality';
+    this.title = this.auth.appName;
 
     this.auth
       .user
