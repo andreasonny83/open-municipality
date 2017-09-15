@@ -1,0 +1,52 @@
+.hero {
+  text-align: center;
+  padding: 80px 0;
+  overflow: auto;
+}
+
+.page {
+  min-height: 2000px;
+  padding-top: 36px;
+}
+
+.search-result-wrapper {
+  margin: 36px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.search-card {
+  margin: 7px;
+  max-width: 104px;
+  cursor: pointer;
+
+  img {
+    padding: 32px 32px 0 32px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+  }
+
+  hr {
+    width: 50%;
+  }
+
+  .search-card__label {
+    text-align: center;
+  }
+}
+
+@media (min-width: 480px) {
+  .search-card {
+    max-width: 144px;
+  }
+
+}
+
+@media (min-width: 601px) {
+  .search-card {
+    margin: 20px;
+    max-width: 160px;
+  }
+}

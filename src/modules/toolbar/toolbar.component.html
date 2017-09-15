@@ -1,21 +1,23 @@
-<md-toolbar color="primary">
-  <span>{{ appTitle }}</span>
+<div class="toolbar-wrapper">
+  <div class="content">
+    <md-toolbar color="primary">
+      <span class="title">{{ appTitle }}</span>
 
-  <span class="toolbar-spacer"></span>
+      <span class="toolbar-spacer"></span>
 
-  <button *ngIf="isSignedIn"
-          (click)="logout()"
-          md-button>Log out</button>
+      <button *ngIf="isSignedIn"
+              (click)="logout()"
+              md-button>Log out</button>
 
-  <button *ngIf="!isSignedIn"
-          (click)="register()"
-          md-button>Register</button>
+      <button *ngIf="!isSignedIn"
+              (click)="register()"
+              md-button>Register</button>
 
-  <button *ngIf="!isSignedIn"
-          (click)="signIn()"
-          md-button>Log In</button>
+      <!-- <md-toolbar-row *ngIf="isSignedIn">
+        <ng-content></ng-content>
+      </md-toolbar-row> -->
+    </md-toolbar>
 
-  <md-toolbar-row *ngIf="isSignedIn">
     <ng-content></ng-content>
-  </md-toolbar-row>
-</md-toolbar>
+  </div>
+</div>

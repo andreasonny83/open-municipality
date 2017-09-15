@@ -1,0 +1,27 @@
+<div class="hero">
+  <div class="content content-wrapper">
+    <h2>AREAS</h2>
+    <span>Here you find listed all areas of work</span>
+  </div>
+</div>
+
+<div class="page">
+    <div class="content content-wrapper">
+      <hr>
+
+      <div class="search-result-wrapper">
+
+        <md-card class="search-card mat-elevation-z0"
+                 *ngFor="let card of searchCategories">
+          <img md-card-image src="assets/images/search.png">
+          <hr>
+          <md-card-content>
+            <p class="search-card__label">
+              The Shiba
+            </p>
+          </md-card-content>
+        </md-card>
+
+      </div>
+    </div>
+</div>

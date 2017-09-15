@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin search-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .hero {
+    background-color: mat-color($primary);
+    color: mat-color($accent);
+  }
+}

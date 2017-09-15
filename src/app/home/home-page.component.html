@@ -1,8 +1,18 @@
 <app-toolbar appTitle="{{ appTitle }}"
-             (onLogout)="logout()"
-             isSignedIn>
-  <a routerLink="/home/workshop">Workshop</a>
-  <a routerLink="/home/search">Search</a>
+            (onLogout)="logout()"
+            isSignedIn>
+
+  <nav md-tab-nav-bar
+      class="content">
+    <a md-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.link"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive"
+      [class.active]="rla.isActive">
+      {{ link.label.toUpperCase() }}
+    </a>
+  </nav>
 </app-toolbar>
 
 <router-outlet></router-outlet>

@@ -9,12 +9,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   public appTitle: string;
+  public navLinks: any[];
 
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute,
   ) {
     this.appTitle = auth.appName;
+    this.navLinks = [
+      { link: '/home/workshop', label: 'Workshop' },
+      { link: '/home/search', label: 'Search' }
+    ];
   }
 
   ngOnInit() {
