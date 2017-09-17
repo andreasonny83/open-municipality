@@ -6,14 +6,16 @@ import {
   MdButtonModule,
   MdIconModule,
   MdInputModule,
+  MdDialogModule,
 } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page.component';
 import { RoutingModule } from './home.routing';
 import { ToolbarModule } from 'modules/toolbar';
 import { WorkshopComponent } from '../workshop/workshop.component';
 import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
+import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,11 @@ import { UploadComponent } from '../upload/upload.component';
     WorkshopComponent,
     SearchComponent,
     UploadComponent,
+    UploadDialogComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     RoutingModule,
     ToolbarModule,
@@ -32,6 +36,10 @@ import { UploadComponent } from '../upload/upload.component';
     MdButtonModule,
     MdIconModule,
     MdInputModule,
+    MdDialogModule,
+  ],
+  entryComponents: [
+    UploadDialogComponent,
   ],
 })
 export class HomeModule { }

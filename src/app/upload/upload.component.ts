@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
 import { FirebaseService } from '../core/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -19,6 +21,7 @@ export class UploadComponent implements OnInit {
     private firebase: FirebaseService,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MdDialog,
   ) {
     this.form = fb.group({
       title: ['', Validators.required ],
@@ -70,7 +73,14 @@ export class UploadComponent implements OnInit {
   }
 
   publish(): void {
-    console.log(this.form);
+    const dialogRef = this.dialog.open(UploadDialogComponent, {
+      // data: {  }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        console.log(result);
+      });
   }
 
 }

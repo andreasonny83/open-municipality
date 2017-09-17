@@ -1,0 +1,22 @@
+<h2 md-dialog-title>Publish</h2>
+
+<md-dialog-content>
+
+  <md-input-container class="input">
+    <input mdInput
+           [(ngModel)]="model.area"
+           placeholder="Area">
+  </md-input-container>
+
+  <md-input-container class="input">
+      <input mdInput
+             [(ngModel)]="model.budget"
+             placeholder="Budget">
+  </md-input-container>
+
+</md-dialog-content>
+
+<md-dialog-actions>
+  <button md-button md-dialog-close>Cancel</button>
+  <button md-button [md-dialog-close]="model">Continue</button>
+</md-dialog-actions>
