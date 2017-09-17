@@ -32,7 +32,9 @@ export class HomePageComponent implements OnInit {
       .mergeMap((route) => route.url)
       .map((segment) => segment.map((item) => item.path))
       .subscribe((segments) => {
-        this.isUpload = segments.indexOf('upload') !== -1;
+        this.isUpload =
+          segments.indexOf('upload') !== -1 ||
+          segments.indexOf('edit') !== -1;
       });
 
     this.appTitle = auth.appName;

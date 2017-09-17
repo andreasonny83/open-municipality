@@ -64,9 +64,9 @@ export class UploadComponent implements OnInit {
 
     this.firebase
       .saveProject(form, true, this.token)
-      .then((res) => {
-        if (res && 'key' in res) {
-          this.router.navigate(['/home/edit', res.key]);
+      .then((projectID: string) => {
+        if (!!projectID) {
+          this.router.navigate(['/home/edit', projectID]);
         }
       })
       .catch(err => console.log('error', err));

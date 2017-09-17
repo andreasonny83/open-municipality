@@ -17,24 +17,36 @@ export class FirebaseService {
   }
 
   fetchProject(projectID: string): FirebaseListObservable<any[]> {
-    const userID = this.authService.userDetails.uid;
-
-    return this.db.list(`/drafts/${userID}/${projectID}`);
+    return this.db.list(`/projects/${projectID}`);
   }
 
-  saveProject(form, isDraft: boolean = false, projectID?: string): any {
+  saveProject(form: any, isDraft: boolean = false, projectID?: string): firebase.Promise<string> {
     const userID = this.authService.userDetails.uid;
+    const draftInfo = {
+      title: form.title,
+    };
 
+    return this
+      .createProject(form, projectID)
+      .then((pID: string) => {
+        projectID = pID;
+
+        return this.db
+          .list(`/drafts/${userID}`)
+          .update(projectID, draftInfo)
+          .then(() => projectID);
+      });
+  }
+
+  private createProject(form, projectID?): firebase.Promise<string> {
     if (!projectID) {
-      return this.db.list(`/drafts/${userID}`).push(form);
+      return this.db.list('/projects')
+        .push(form)
+        .then(pID => pID.key);
+    } else {
+      return this.db.list('/projects')
+        .update(projectID, form)
+        .then(() => projectID);
     }
-
-    const listPath: string = isDraft ?
-      `/drafts/${userID}` :
-      `/projects`;
-
-    return this.db.list(listPath)
-      .update(projectID, form);
   }
-
 }
