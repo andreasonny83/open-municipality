@@ -15,4 +15,13 @@
   </nav>
 </app-toolbar>
 
+<div class="upload">
+  <button md-fab
+          *ngIf="!isUpload"
+          color="warn"
+          routerLink="/home/upload">
+    <md-icon aria-label="Upload">add</md-icon>
+  </button>
+</div>
+
 <router-outlet></router-outlet>

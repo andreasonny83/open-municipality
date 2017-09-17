@@ -10,22 +10,24 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
-// import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './auth-guard.service';
 import { AuthService, AuthServiceConfig } from './auth.service';
+import { FirebaseService } from './firebase.service';
 
 import { environment } from 'environments/environment';
 
 @NgModule({
   imports: [
     CommonModule,
-    AngularFireModule.initializeApp(environment.firebase, 'open-municipality'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-
+    AngularFireModule.initializeApp(environment.firebase, 'open-municipality'),
   ],
   providers: [
-    AuthService,
     AngularFireAuth,
+    AuthService,
+    AuthGuard,
+    FirebaseService,
   ],
 })
 export class CoreModule {

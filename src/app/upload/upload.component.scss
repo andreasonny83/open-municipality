@@ -1,0 +1,51 @@
+.canvas {
+  margin: 20px;
+  border: 1px solid rgba(0,0,0,.4);
+  border-radius: 8px;
+  padding-bottom: 10px;
+
+  & > div {
+    padding: 5px 10px;
+  }
+
+  .canvas__menu,
+  .canvas__title,
+  .canvas__content {
+    padding: 6px 12px;
+  }
+
+  .canvas__menu {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+    overflow: auto;
+
+    .left,
+    .right {
+      flex: 1;
+    }
+
+    .middle {
+      flex: auto;
+      text-align: center;
+    }
+  }
+
+  .input__title,
+  .input__content {
+    padding-top: 20px;
+    width: 100%;
+  }
+
+  .input__content {
+    height: 200px;
+  }
+}
+
+.horizontal-line {
+  margin: 25px 50px;
+}
+
+.canvas__content {
+
+}

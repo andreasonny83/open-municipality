@@ -8,7 +8,7 @@ export class AuthServiceConfig {
   appName: string;
 
   constructor() {
-    this.appName = 'Awesome app';
+    this.appName = '';
   }
 }
 
@@ -37,8 +37,6 @@ export class AuthService {
   }
 
   handleFireBaseUser(user: firebase.User) {
-    console.log('user status changed', user);
-
     this.userDetails = null;
 
     if (!!user) {
@@ -53,8 +51,6 @@ export class AuthService {
     if (err) {
       console.log('error', err);
     }
-
-    console.log('logging out');
 
     this.userDetails = null;
 

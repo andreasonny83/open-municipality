@@ -16,7 +16,7 @@ $app-primary: mat-palette($mat-grey, 600);
 $app-accent:  mat-palette($mat-grey, 50);
 
 // The warn palette is optional (defaults to red).
-$app-warn:    mat-palette($mat-red);
+$app-warn:    mat-palette($mat-light-blue, 500);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
@@ -25,7 +25,6 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($app-theme);
-
 
 // Using the $theme variable from the pre-built theme you can call the theming function
 @include toolbar-theme($app-theme);

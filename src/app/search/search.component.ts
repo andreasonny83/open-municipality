@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../core/firebase.service';
 
 @Component({
   selector: 'app-search',
@@ -8,12 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class SearchComponent implements OnInit {
   public searchCategories: any[];
 
-  constructor() { }
+  constructor(
+    private firebase: FirebaseService,
+  ) { }
 
   ngOnInit() {
-    this.searchCategories = [
-      {}, {}, {}, {}
-    ];
+    this
+      .firebase
+      .fetchAreas()
+      .subscribe(data => this.searchCategories = data);
   }
 
 }

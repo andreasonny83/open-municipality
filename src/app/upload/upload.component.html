@@ -1,0 +1,48 @@
+<div class="content content-wrapper">
+  <div class="canvas">
+
+    <form [formGroup]="form"
+          (ngSubmit)="publish()"
+          novalidate>
+      <div class="canvas__menu">
+        <div class="left">
+          <button md-button (click)="cancel($event)">Cancel</button>
+        </div>
+
+        <div class="middle">
+          <button md-button
+                  (click)="save($event)"
+                  [disabled]="!form.valid">Save</button>
+
+          <button md-button
+                  color="warn"
+                  type="submit"
+                  [disabled]="!form.valid">Publish</button>
+        </div>
+
+        <div class="right"></div>
+      </div>
+
+      <div class="canvas__title">
+        <md-input-container class="input__title">
+          <input mdInput
+                 formControlName="title"
+                 placeholder="Project title">
+        </md-input-container>
+      </div>
+
+      <hr class="horizontal-line">
+
+      <div class="canvas__content">
+        <md-input-container class="input__content">
+          <textarea mdInput
+                    mdTextareaAutosize
+                    formControlName="content"
+                    placeholder="Text block"></textarea>
+        </md-input-container>
+      </div>
+
+    </form>
+  </div>
+
+</div>
