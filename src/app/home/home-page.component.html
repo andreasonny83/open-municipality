@@ -1,15 +1,15 @@
 <app-toolbar appTitle="{{ appTitle }}"
-            (onLogout)="logout()"
-            isSignedIn>
+             (onLogout)="logout()"
+             isSignedIn>
 
   <nav md-tab-nav-bar
-      class="content">
+       class="content">
     <a md-tab-link
-      *ngFor="let link of navLinks"
-      [routerLink]="link.link"
-      routerLinkActive #rla="routerLinkActive"
-      [active]="rla.isActive"
-      [class.active]="rla.isActive">
+       *ngFor="let link of navLinks"
+       [routerLink]="link.link"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive"
+       [class.active]="rla.isActive">
       {{ link.label.toUpperCase() }}
     </a>
   </nav>

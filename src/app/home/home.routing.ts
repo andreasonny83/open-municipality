@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './home-page.component';
-import { WorkshopComponent } from '../workshop/workshop.component';
 import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
 
@@ -11,7 +10,7 @@ const routes: Routes = [
     component: HomePageComponent,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'workshop' },
-      { path: 'workshop', component: WorkshopComponent, data: { upload: true } },
+      { path: 'workshop', loadChildren: '../workshop/workshop.module#WorkshopModule' },
       { path: 'search', component: SearchComponent },
       { path: 'upload', component: UploadComponent },
       { path: 'edit/:id', component: UploadComponent },

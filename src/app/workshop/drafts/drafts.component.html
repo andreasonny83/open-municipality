@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="content content-wrapper">
+      <hr>
+
+      <div class="search-result-wrapper">
+
+        <md-card class="search-card mat-elevation-z1"
+                 *ngFor="let project of projects"
+                 (click)="editProject(project.$key)">
+          <md-card-header>
+            {{ project.title }}
+          </md-card-header>
+
+          <md-card-content></md-card-content>
+        </md-card>
+
+      </div>
+    </div>
+</div>

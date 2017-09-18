@@ -7,12 +7,12 @@ import {
   MdIconModule,
   MdInputModule,
   MdDialogModule,
+  MdSelectModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page.component';
 import { RoutingModule } from './home.routing';
 import { ToolbarModule } from 'modules/toolbar';
-import { WorkshopComponent } from '../workshop/workshop.component';
 import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
 import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.component';
@@ -20,7 +20,6 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
 @NgModule({
   declarations: [
     HomePageComponent,
-    WorkshopComponent,
     SearchComponent,
     UploadComponent,
     UploadDialogComponent,
@@ -37,6 +36,7 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
     MdIconModule,
     MdInputModule,
     MdDialogModule,
+    MdSelectModule,
   ],
   entryComponents: [
     UploadDialogComponent,

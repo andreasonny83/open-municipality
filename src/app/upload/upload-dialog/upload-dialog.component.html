@@ -2,14 +2,19 @@
 
 <md-dialog-content>
 
-  <md-input-container class="input">
-    <input mdInput
-           [(ngModel)]="model.area"
-           placeholder="Area">
-  </md-input-container>
+  <md-select class="input"
+             placeholder="Area"
+             required
+             [(ngModel)]="model.area">
+    <md-option *ngFor="let area of areas"
+               [value]="area.$key">
+      {{ area.label }}
+    </md-option>
+  </md-select>
 
   <md-input-container class="input">
       <input mdInput
+             required
              [(ngModel)]="model.budget"
              placeholder="Budget">
   </md-input-container>
@@ -17,6 +22,9 @@
 </md-dialog-content>
 
 <md-dialog-actions>
-  <button md-button md-dialog-close>Cancel</button>
-  <button md-button [md-dialog-close]="model">Continue</button>
+  <button md-button
+          md-dialog-close>Cancel</button>
+
+  <button md-button
+          [md-dialog-close]="model">Continue</button>
 </md-dialog-actions>

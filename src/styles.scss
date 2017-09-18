@@ -5,6 +5,7 @@ body {
   min-width: 320px;
   margin: 104px 0 0;
   font-family: Roboto, sans-serif;
+  background-color: #ebebeb;
 }
 
 app-toolbar {
@@ -13,11 +14,11 @@ app-toolbar {
   left: 0;
   width: 100%;
   z-index: 99;
-}
 
-md-ink-bar {
-  color: white !important;
-  background-color:white !important;
+  md-ink-bar {
+    color: white !important;
+    background-color:white !important;
+  }
 }
 
 .content {

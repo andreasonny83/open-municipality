@@ -1,0 +1,17 @@
+.navbar {
+  margin-top: 50px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  background: white;
+
+  a.mat-tab-link {
+    color: black;
+  }
+
+}
+
+md-tab-nav-bar /deep/ .mat-ink-bar {
+  color: red!important;
+  background-color: red!important;
+}

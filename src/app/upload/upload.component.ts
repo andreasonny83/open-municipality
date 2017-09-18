@@ -41,11 +41,10 @@ export class UploadComponent implements OnInit {
     if (this.token) {
       this.firebase
         .fetchProject(this.token)
-        .subscribe(res => res.map(key => {
-            this.form
-              .controls[key.$key]
-              .setValue(key.$value);
-          }));
+        .map(items => items.filter(el => el.$key in this.form.controls))
+        .subscribe(items => items.map(item => {
+          this.form.controls[item.$key].setValue(item.$value);
+        }));
     }
   }
 

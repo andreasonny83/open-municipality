@@ -1,5 +1,17 @@
 <div class="content content-wrapper">
-  <p>
-    workshop works!
-  </p>
+
+  <nav md-tab-nav-bar
+       class="navbar">
+    <a md-tab-link
+      *ngFor="let page of pages"
+      [routerLink]="page.link"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive"
+      [class.active]="rla.isActive">
+      {{ page.label.toUpperCase() }}
+    </a>
+  </nav>
+
+  <router-outlet></router-outlet>
+
 </div>
