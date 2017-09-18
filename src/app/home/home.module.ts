@@ -15,6 +15,7 @@ import { RoutingModule } from './home.routing';
 import { ToolbarModule } from 'modules/toolbar';
 import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
+import { DeleteDialogComponent } from '../upload/delete-dialog/delete-dialog.component';
 import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
     SearchComponent,
     UploadComponent,
     UploadDialogComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
   ],
   entryComponents: [
     UploadDialogComponent,
+    DeleteDialogComponent,
   ],
 })
 export class HomeModule { }

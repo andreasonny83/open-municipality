@@ -27,8 +27,6 @@ export class DraftsComponent implements OnInit {
   }
 
   private handleDraftProjects(projects: any[]) {
-    console.log(projects);
-
     this.projects = projects;
   }
 

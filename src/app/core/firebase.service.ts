@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class FirebaseService {
@@ -50,6 +51,31 @@ export class FirebaseService {
           .update(projectID, draftInfo)
           .then(() => projectID);
       });
+  }
+
+  deleteProjects(projectID: string): Observable<any> {
+    return Observable.forkJoin([
+      this.deleteProject(projectID),
+      this.deletePublished(projectID),
+      this.deleteDraft(projectID),
+    ]);
+  }
+
+  private deleteProject(projectID: string) {
+    return this.db.list('/projects')
+      .remove(projectID);
+  }
+
+  private deletePublished(projectID: string) {
+    return this.db.list(`/published`)
+      .remove(projectID);
+}
+
+  private deleteDraft(projectID: string) {
+    const userID: string = this.authService.userDetails.uid;
+
+    return this.db.list(`/drafts/${userID}`)
+      .remove(projectID);
   }
 
   private createProject(form, projectID?): firebase.Promise<string> {

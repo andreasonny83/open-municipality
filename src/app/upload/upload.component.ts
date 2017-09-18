@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { FirebaseService } from '../core/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MdDialog } from '@angular/material';
@@ -15,6 +16,7 @@ import 'rxjs/add/operator/map';
 export class UploadComponent implements OnInit {
   form: FormGroup;
   token: string;
+  isSavedProject: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +25,8 @@ export class UploadComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MdDialog,
   ) {
+    this.isSavedProject = false;
+
     this.form = fb.group({
       title: ['', Validators.required ],
       content: ['', Validators.required ],
@@ -43,13 +47,17 @@ export class UploadComponent implements OnInit {
         .fetchProject(this.token)
         .map(items => items.filter(el => el.$key in this.form.controls))
         .subscribe(items => items.map(item => {
+          this.isSavedProject = true;
           this.form.controls[item.$key].setValue(item.$value);
         }));
     }
   }
 
-  cancel(event: MouseEvent): void {
-    event.preventDefault();
+  cancel(event?: MouseEvent): void {
+    if (event) {
+      event.preventDefault();
+    }
+
     this.router.navigate(['/home']);
   }
 
@@ -72,14 +80,25 @@ export class UploadComponent implements OnInit {
   }
 
   publish(): void {
-    const dialogRef = this.dialog.open(UploadDialogComponent, {
-      // data: {  }
-    });
-
-    dialogRef.afterClosed()
-      .subscribe(result => {
-        console.log(result);
-      });
+    const dialogRef = this.dialog.open(UploadDialogComponent, {});
   }
 
+  deleteProject(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {});
+
+    dialogRef
+      .afterClosed()
+      .subscribe(res => this.deleteProjectHandler(res));
+  }
+
+  private deleteProjectHandler(res): void {
+    if (!res) {
+      return;
+    }
+
+    this
+      .firebase
+      .deleteProjects(this.token)
+      .subscribe(() => this.cancel());
+  }
 }

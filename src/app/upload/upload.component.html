@@ -7,6 +7,10 @@
       <div class="canvas__menu">
         <div class="left">
           <button md-button (click)="cancel($event)">Cancel</button>
+
+          <button md-button class="delete"
+                  [disabled]="!isSavedProject"
+                  (click)="deleteProject($event)">Delete</button>
         </div>
 
         <div class="middle">
@@ -20,7 +24,9 @@
                   [disabled]="!form.valid">Publish</button>
         </div>
 
-        <div class="right"></div>
+        <div class="right">
+          <p>Status: Draft</p>
+        </div>
       </div>
 
       <div class="canvas__title">

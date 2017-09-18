@@ -1,22 +1,26 @@
 {
   "rules": {
+
     "areas": {
       ".read": "auth != null",
       ".write": "false"
     },
+
     "drafts": {
-      ".read": "true",
+      ".read": "auth != null",
       "$uid": {
-        // ".read": "$uid === auth.uid",
-        // ".read": "true",
         ".write": "!data.exists() || $uid === auth.uid"
       }
     },
+
     "projects": {
-      "$uid": {
-        ".write": "auth != null && (!data.exists() || data.child('author').val() === auth.uid)",
-        ".read": "auth != null && data.child('status').val() !== 'draft'"
-      }
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+
+    "published": {
+      ".read": "auth != null",
+      ".write": "auth != null"
     }
   }
 }
