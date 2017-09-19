@@ -17,6 +17,7 @@ export class UploadComponent implements OnInit {
   form: FormGroup;
   token: string;
   isSavedProject: boolean;
+  project: any;
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,8 @@ export class UploadComponent implements OnInit {
     this.token = params.get('id');
 
     if (this.token) {
+      this.project = this.firebase.fetchProjectObject(this.token);
+
       this.firebase
         .fetchProject(this.token)
         .map(items => items.filter(el => el.$key in this.form.controls))
@@ -53,24 +56,15 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  cancel(event?: MouseEvent): void {
-    if (event) {
-      event.preventDefault();
-    }
-
+  cancel(): void {
     this.router.navigate(['/home']);
   }
 
-  save(event: MouseEvent): void {
-    event.preventDefault();
-
-    const form = {
-      title: this.form.get('title').value,
-      content: this.form.get('content').value,
-    };
+  save(): void {
+    const form = this.extractFormDetails();
 
     this.firebase
-      .saveProject(form, true, this.token)
+      .saveProject(form, this.token)
       .then((projectID: string) => {
         if (!!projectID) {
           this.router.navigate(['/home/edit', projectID]);
@@ -81,6 +75,16 @@ export class UploadComponent implements OnInit {
 
   publish(): void {
     const dialogRef = this.dialog.open(UploadDialogComponent, {});
+    const formDetails = this.extractFormDetails();
+
+    dialogRef
+      .afterClosed()
+      .subscribe(publishingDetails =>
+          this.publishProjectHandler(
+            this.token,
+            publishingDetails,
+            formDetails));
+
   }
 
   deleteProject(): void {
@@ -89,6 +93,13 @@ export class UploadComponent implements OnInit {
     dialogRef
       .afterClosed()
       .subscribe(res => this.deleteProjectHandler(res));
+  }
+
+  private extractFormDetails() {
+    return {
+      title: this.form.get('title').value,
+      content: this.form.get('content').value,
+    };
   }
 
   private deleteProjectHandler(res): void {
@@ -100,5 +111,22 @@ export class UploadComponent implements OnInit {
       .firebase
       .deleteProjects(this.token)
       .subscribe(() => this.cancel());
+  }
+
+  private publishProjectHandler(projectID, publishingDetails, projectInfo): void {
+    if (!publishingDetails) {
+      return;
+    }
+
+    this
+      .firebase
+      .publishProject(publishingDetails, projectInfo, projectID)
+      .then((res: string) => {
+        if (!!res) {
+          this.router.navigate(['/home/edit', res]);
+        }
+      });
+
+      // .subscribe(() => this.cancel());
   }
 }

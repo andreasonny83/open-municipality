@@ -1,5 +1,5 @@
 import { Injectable, Optional } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
@@ -27,8 +27,13 @@ export class FirebaseService {
     return this.db.list(`/projects/${projectID}`);
   }
 
-  saveProject(form: any, isDraft: boolean = false, projectID?: string): firebase.Promise<string> {
+  fetchProjectObject(projectID: string): FirebaseObjectObservable<any[]> {
+    return this.db.object(`/projects/${projectID}`);
+  }
+
+  saveProject(form: any, projectID?: string): firebase.Promise<string> {
     const userID: string = this.authService.userDetails.uid;
+    const status = form.status || 'draft';
     const draftInfo = {
       title: form.title,
       author: userID,
@@ -38,7 +43,7 @@ export class FirebaseService {
       title: form.title,
       content: form.content,
       author: userID,
-      status: 'draft'
+      status: status,
     };
 
     return this
@@ -59,6 +64,16 @@ export class FirebaseService {
       this.deletePublished(projectID),
       this.deleteDraft(projectID),
     ]);
+  }
+
+  publishProject(publishingDetails, projectInfo, projectID?: string): firebase.Promise<string> {
+    const projectForm = {
+      title: projectInfo.title,
+      content: projectInfo.content,
+      status: 'published',
+    };
+
+    return this.saveProject(projectForm, projectID);
   }
 
   private deleteProject(projectID: string) {

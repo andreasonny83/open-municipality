@@ -6,16 +6,20 @@
           novalidate>
       <div class="canvas__menu">
         <div class="left">
-          <button md-button (click)="cancel($event)">Cancel</button>
+          <button md-button
+                  type="button"
+                  (click)="cancel()">Cancel</button>
 
           <button md-button class="delete"
                   [disabled]="!isSavedProject"
-                  (click)="deleteProject($event)">Delete</button>
+                  type="button"
+                  (click)="deleteProject()">Delete</button>
         </div>
 
         <div class="middle">
           <button md-button
-                  (click)="save($event)"
+                  (click)="save()"
+                  type="button"
                   [disabled]="!form.valid">Save</button>
 
           <button md-button
@@ -25,7 +29,7 @@
         </div>
 
         <div class="right">
-          <p>Status: Draft</p>
+          <p>Status: {{ (project | async)?.status || 'draft' }}</p>
         </div>
       </div>
 
