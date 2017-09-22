@@ -25,11 +25,11 @@
           <button md-button
                   color="warn"
                   type="submit"
-                  [disabled]="!form.valid">Publish</button>
+                  [disabled]="!form.valid">{{ getPublishedButtonCopy }}</button>
         </div>
 
         <div class="right">
-          <p>Status: {{ (project | async)?.status || 'draft' }}</p>
+          <p>Status: {{ project?.status || 'draft' }}</p>
         </div>
       </div>
 
@@ -43,13 +43,24 @@
 
       <hr class="horizontal-line">
 
-      <div class="canvas__content">
-        <md-input-container class="input__content">
+      <div class="canvas__content"
+           [dragula]='"first-bag"'>
+
+        <md-input-container class="input__content draggable-element">
           <textarea mdInput
                     mdTextareaAutosize
                     formControlName="content"
                     placeholder="Text block"></textarea>
         </md-input-container>
+
+        <md-input-container class="input__content draggable-element">
+          <textarea mdInput
+                    mdTextareaAutosize
+                    placeholder="Text block"></textarea>
+        </md-input-container>
+
+        <!-- <quill-editor [options]="editorOptions"
+                      formControlName="newContent"></quill-editor> -->
       </div>
 
     </form>

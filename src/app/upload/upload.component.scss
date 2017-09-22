@@ -8,48 +8,64 @@
   & > div {
     padding: 5px 10px;
   }
+}
 
-  .canvas__menu,
-  .canvas__title,
-  .canvas__content {
-    padding: 6px 12px;
+.canvas__menu,
+.canvas__title,
+.canvas__content {
+  padding: 6px 12px;
+}
+
+.canvas__menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,.4);
+  overflow: auto;
+
+  .delete:not([disabled]) {
+    color: red;
   }
 
-  .canvas__menu {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,.4);
-    overflow: auto;
-
-    .delete:not([disabled]) {
-      color: red;
-    }
-
-    .left {
-      text-align: left;
-    }
-
-    .right {
-      text-align: right;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .middle {
-      flex: 1 1 auto;
-      text-align: center;
-    }
+  .left {
+    text-align: left;
   }
 
-  .input__title,
-  .input__content {
-    padding-top: 20px;
-    width: 100%;
+  .right {
+    text-align: right;
+    font-size: 12px;
+    color: #666;
   }
 
-  .input__content {
-    height: 200px;
+  .middle {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+.input__title,
+.input__content {
+  padding-top: 20px;
+  width: 100%;
+}
+
+.input__content {
+  height: 200px;
+}
+
+.draggable-element {
+  cursor: move;
+  box-sizing: border-box;
+  transition: opacity 0.4s ease-in-out;
+
+  &.gu-transit {
+    background-color: rgba(27, 92, 255, 0.4);
+  }
+
+  &:hover {
+    border: 1px dotted rgba(0, 0, 0, 0.7);
+    border-radius: 6px;
+    padding: 10px;
   }
 }
 

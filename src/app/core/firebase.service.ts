@@ -51,11 +51,20 @@ export class FirebaseService {
       .then((pID: string) => {
         projectID = pID;
 
-        return this.db
-          .list(`/drafts/${userID}`)
-          .update(projectID, draftInfo)
-          .then(() => projectID);
-      });
+        const calls = [
+          this.db.list(`/drafts/${userID}`).update(projectID, draftInfo),
+        ];
+
+        console.log(status);
+
+        if (status === 'published') {
+          calls.push(
+            this.db.list(`/published/${projectID}`).set('title', draftInfo.title),
+          );
+        }
+        return Observable.forkJoin(...calls);
+      })
+      .then(() => projectID);
   }
 
   deleteProjects(projectID: string): Observable<any> {
@@ -66,14 +75,30 @@ export class FirebaseService {
     ]);
   }
 
-  publishProject(publishingDetails, projectInfo, projectID?: string): firebase.Promise<string> {
+  publishProject(publishingDetails, projectInfo, projectID: string): firebase.Promise<string> {
+    const userID: string = this.authService.userDetails.uid;
+
     const projectForm = {
       title: projectInfo.title,
       content: projectInfo.content,
-      status: 'published',
+      status: projectInfo.status,
     };
 
-    return this.saveProject(projectForm, projectID);
+    const publishedInfo = {
+      title: projectInfo.title,
+      author: userID,
+    };
+
+    return this
+      .saveProject(projectForm, projectID)
+      .then(() => this.db.list('/published').update(projectID, publishedInfo));
+  }
+
+  unpublishProject(projectID: string) {
+    return this.db
+      .list(`/projects/${projectID}`)
+      .set('status', 'upublished');
+
   }
 
   private deleteProject(projectID: string) {

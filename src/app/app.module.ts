@@ -11,7 +11,6 @@ import { CoreModule } from './core/core.module';
 /* Routing Module */
 import { AppRoutingModule } from './app.routing';
 
-
 @NgModule({
   declarations: [
     AppComponent,

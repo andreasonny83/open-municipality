@@ -17,6 +17,10 @@ import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
 import { DeleteDialogComponent } from '../upload/delete-dialog/delete-dialog.component';
 import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.component';
+// import { QuillEditorModule } from 'ngx-quill-editor';
+// import { QuillModule } from 'ngx-quill';
+// import 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,7 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
     DeleteDialogComponent,
   ],
   imports: [
+    DragulaModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -39,6 +44,8 @@ import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.com
     MdInputModule,
     MdDialogModule,
     MdSelectModule,
+    // QuillEditorModule,
+    // QuillModule,
   ],
   entryComponents: [
     UploadDialogComponent,

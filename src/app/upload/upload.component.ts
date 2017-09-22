@@ -18,6 +18,12 @@ export class UploadComponent implements OnInit {
   token: string;
   isSavedProject: boolean;
   project: any;
+  editorOptions = {
+    placeholder: 'insert content...',
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+    ]
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +37,7 @@ export class UploadComponent implements OnInit {
     this.form = fb.group({
       title: ['', Validators.required ],
       content: ['', Validators.required ],
+      newContent: ['', Validators.required ],
     });
   }
 
@@ -40,11 +47,19 @@ export class UploadComponent implements OnInit {
       .subscribe(params => this.getParams(params));
   }
 
+  get getPublishedButtonCopy(): string {
+    return this.project &&
+           this.project.status &&
+           this.project.status.toLowerCase() === 'published' ? 'Unpublish' : 'Publish';
+  }
+
   getParams(params): void {
     this.token = params.get('id');
 
     if (this.token) {
-      this.project = this.firebase.fetchProjectObject(this.token);
+      this.firebase
+        .fetchProjectObject(this.token)
+        .subscribe(data => this.project = data);
 
       this.firebase
         .fetchProject(this.token)
@@ -66,7 +81,7 @@ export class UploadComponent implements OnInit {
     this.firebase
       .saveProject(form, this.token)
       .then((projectID: string) => {
-        if (!!projectID) {
+        if (!!projectID && !this.token) {
           this.router.navigate(['/home/edit', projectID]);
         }
       })
@@ -74,10 +89,13 @@ export class UploadComponent implements OnInit {
   }
 
   publish(): void {
-    const dialogRef = this.dialog.open(UploadDialogComponent, {});
-    const formDetails = this.extractFormDetails();
+    const formDetails = this.extractFormDetails(true);
 
-    dialogRef
+    if (formDetails.status === 'unpublished') {
+      return this.unpublish(this.token);
+    }
+
+    this.dialog.open(UploadDialogComponent, {})
       .afterClosed()
       .subscribe(publishingDetails =>
           this.publishProjectHandler(
@@ -95,11 +113,24 @@ export class UploadComponent implements OnInit {
       .subscribe(res => this.deleteProjectHandler(res));
   }
 
-  private extractFormDetails() {
-    return {
+  private unpublish(projectID: string) {
+    this.firebase
+      .unpublishProject(projectID);
+
+  }
+
+  private extractFormDetails(publish?: boolean) {
+    const formDetails = {
       title: this.form.get('title').value,
       content: this.form.get('content').value,
+      status: this.project && this.project.status,
     };
+
+    if (!!publish) {
+      formDetails.status = formDetails.status === 'published' ? 'unpublished' : 'published';
+    }
+
+    return formDetails;
   }
 
   private deleteProjectHandler(res): void {
@@ -107,19 +138,17 @@ export class UploadComponent implements OnInit {
       return;
     }
 
-    this
-      .firebase
+    this.firebase
       .deleteProjects(this.token)
       .subscribe(() => this.cancel());
   }
 
-  private publishProjectHandler(projectID, publishingDetails, projectInfo): void {
+  private publishProjectHandler(projectID: string, publishingDetails, projectInfo): void {
     if (!publishingDetails) {
       return;
     }
 
-    this
-      .firebase
+    this.firebase
       .publishProject(publishingDetails, projectInfo, projectID)
       .then((res: string) => {
         if (!!res) {
