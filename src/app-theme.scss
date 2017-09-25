@@ -1,7 +1,10 @@
 @import '~@angular/material/theming';
 @import '~dragula/dist/dragula';
-@import '/modules/toolbar/toolbar-theme.scss';
-@import '/app/search/search.component-theme.scss';
+
+@import '~quill/dist/quill.snow.css';
+
+@import 'modules/toolbar/toolbar-theme.scss';
+@import 'app/search/search.component-theme.scss';
 
 // Plus imports for other components in your app.
 

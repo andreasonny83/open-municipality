@@ -57,15 +57,10 @@
   cursor: move;
   box-sizing: border-box;
   transition: opacity 0.4s ease-in-out;
+  display: inline-block;
 
   &.gu-transit {
     background-color: rgba(27, 92, 255, 0.4);
-  }
-
-  &:hover {
-    border: 1px dotted rgba(0, 0, 0, 0.7);
-    border-radius: 6px;
-    padding: 10px;
   }
 }
 

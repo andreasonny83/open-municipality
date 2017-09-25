@@ -12,12 +12,15 @@
     </md-option>
   </md-select>
 
-  <md-input-container class="input">
-      <input mdInput
+  <md-select class="input"
+             placeholder="Budget"
              required
-             [(ngModel)]="model.budget"
-             placeholder="Budget">
-  </md-input-container>
+             [(ngModel)]="model.budget">
+    <md-option *ngFor="let budget of budgets"
+               [value]="budget.$key">
+      {{ budget.label }}
+    </md-option>
+  </md-select>
 
 </md-dialog-content>
 
@@ -26,5 +29,6 @@
           md-dialog-close>Cancel</button>
 
   <button md-button
-          [md-dialog-close]="model">Continue</button>
+          [disabled]="!isValid"
+          (click)="publish()">Continue</button>
 </md-dialog-actions>

@@ -8,6 +8,7 @@ import {
   MdInputModule,
   MdDialogModule,
   MdSelectModule,
+  MdSnackBarModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page.component';
@@ -17,9 +18,7 @@ import { SearchComponent } from '../search/search.component';
 import { UploadComponent } from '../upload/upload.component';
 import { DeleteDialogComponent } from '../upload/delete-dialog/delete-dialog.component';
 import { UploadDialogComponent } from '../upload/upload-dialog/upload-dialog.component';
-// import { QuillEditorModule } from 'ngx-quill-editor';
-// import { QuillModule } from 'ngx-quill';
-// import 'ng2-dragula';
+import { QuillModule } from 'ngx-quill';
 import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
@@ -44,8 +43,8 @@ import { DragulaModule } from 'ng2-dragula';
     MdInputModule,
     MdDialogModule,
     MdSelectModule,
-    // QuillEditorModule,
-    // QuillModule,
+    MdSnackBarModule,
+    QuillModule,
   ],
   entryComponents: [
     UploadDialogComponent,

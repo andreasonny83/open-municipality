@@ -4,6 +4,7 @@
     <form [formGroup]="form"
           (ngSubmit)="publish()"
           novalidate>
+
       <div class="canvas__menu">
         <div class="left">
           <button md-button
@@ -37,33 +38,25 @@
         <md-input-container class="input__title">
           <input mdInput
                  formControlName="title"
-                 placeholder="Project title">
+                 placeholder="Enter your project's title...">
         </md-input-container>
       </div>
 
       <hr class="horizontal-line">
 
-      <div class="canvas__content"
-           [dragula]='"first-bag"'>
+      <div class="canvas__content">
+      <!-- <div class="canvas__content" [dragula]='"first-bag"'> -->
 
-        <md-input-container class="input__content draggable-element">
-          <textarea mdInput
-                    mdTextareaAutosize
-                    formControlName="content"
-                    placeholder="Text block"></textarea>
-        </md-input-container>
+        <!-- <quill-editor class="input__content draggable-element" -->
+        <quill-editor class="input__content"
+                      [modules]="editorOptions"
+                      placeholder="Enter your project's description here..."
+                      formControlName="content"></quill-editor>
 
-        <md-input-container class="input__content draggable-element">
-          <textarea mdInput
-                    mdTextareaAutosize
-                    placeholder="Text block"></textarea>
-        </md-input-container>
-
-        <!-- <quill-editor [options]="editorOptions"
-                      formControlName="newContent"></quill-editor> -->
       </div>
 
     </form>
+
   </div>
 
 </div>

@@ -5243,13 +5243,6 @@ ngm-cli@^0.7.0:
     node-sass-tilde-importer ">=1.0.0"
     npm-submodules "0.7.0"
 
-ngx-quill-editor@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/ngx-quill-editor/-/ngx-quill-editor-2.2.1.tgz#ddc7acdcba9a94d78b31c46e25c3ee1b58496e9b"
-  dependencies:
-    "@types/quill" "^0.0.31"
-    quill "^1.3.1"
-
 ngx-quill@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-1.4.0.tgz#1c98a08c06a1114e85daa7e51768b880089a90bf"
@@ -6388,7 +6381,7 @@ quill-delta@3.6.1:
     extend "^3.0.1"
     fast-diff "1.1.1"
 
-quill@^1.2.0, quill@^1.3.1:
+quill@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/quill/-/quill-1.3.2.tgz#fe396b4fa1d1439d76956ff92218a0cb90c09f3f"
   dependencies:

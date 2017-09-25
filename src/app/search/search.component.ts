@@ -16,7 +16,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this
       .firebase
-      .fetchAreas()
+      .fetchProjectTags('areas')
       .subscribe(data => this.searchCategories = data);
   }
 

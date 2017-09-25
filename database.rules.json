@@ -6,6 +6,11 @@
       ".write": "false"
     },
 
+  "budgets": {
+      ".read": "auth != null",
+      ".write": "false"
+    },
+
     "drafts": {
       ".read": "auth != null",
       "$uid": {

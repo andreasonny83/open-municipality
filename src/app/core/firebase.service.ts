@@ -1,9 +1,10 @@
 import { Injectable, Optional } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class FirebaseService {
@@ -13,8 +14,8 @@ export class FirebaseService {
   ) {
   }
 
-  fetchAreas(): FirebaseListObservable<any[]> {
-    return this.db.list('areas');
+  fetchProjectTags(target: string): FirebaseListObservable<any[]> {
+    return this.db.list(target);
   }
 
   fetchDraftProjects(): FirebaseListObservable<any[]> {
@@ -36,7 +37,6 @@ export class FirebaseService {
     const status = form.status || 'draft';
     const draftInfo = {
       title: form.title,
-      author: userID,
     };
 
     const projectInfo = {
@@ -54,8 +54,6 @@ export class FirebaseService {
         const calls = [
           this.db.list(`/drafts/${userID}`).update(projectID, draftInfo),
         ];
-
-        console.log(status);
 
         if (status === 'published') {
           calls.push(
@@ -87,18 +85,24 @@ export class FirebaseService {
     const publishedInfo = {
       title: projectInfo.title,
       author: userID,
+      area: publishingDetails.area,
+      budget: publishingDetails.budget,
     };
 
     return this
       .saveProject(projectForm, projectID)
-      .then(() => this.db.list('/published').update(projectID, publishedInfo));
+      .then(() => {
+        this.db.list('/published')
+          .update(projectID, publishedInfo);
+      });
   }
 
   unpublishProject(projectID: string) {
-    return this.db
-      .list(`/projects/${projectID}`)
-      .set('status', 'upublished');
-
+    return this.deletePublished(projectID)
+      .then(() => {
+        return this.db.list(`/projects/${projectID}`)
+          .set('status', 'upublished');
+      });
   }
 
   private deleteProject(projectID: string) {

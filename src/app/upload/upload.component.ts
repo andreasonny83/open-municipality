@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
 import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { FirebaseService } from '../core/firebase.service';
@@ -14,30 +15,39 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  form: FormGroup;
-  token: string;
-  isSavedProject: boolean;
-  project: any;
-  editorOptions = {
-    placeholder: 'insert content...',
+  public form: FormGroup;
+  public isSavedProject: boolean;
+  public project: any;
+  public editorOptions = {
     toolbar: [
+      // https://github.com/KillerCodeMonkey/ngx-quill
       ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }],
+      ['link', 'image', 'video', 'file']
     ]
   };
+
+  private token: string;
+  private snackBarDuration: number;
 
   constructor(
     private fb: FormBuilder,
     private firebase: FirebaseService,
     private router: Router,
     private route: ActivatedRoute,
-    public dialog: MdDialog,
+    private snackBar: MdSnackBar,
+    private dialog: MdDialog,
   ) {
+    this.snackBarDuration = 3000;
     this.isSavedProject = false;
 
     this.form = fb.group({
       title: ['', Validators.required ],
       content: ['', Validators.required ],
-      newContent: ['', Validators.required ],
     });
   }
 
@@ -84,6 +94,8 @@ export class UploadComponent implements OnInit {
         if (!!projectID && !this.token) {
           this.router.navigate(['/home/edit', projectID]);
         }
+
+        this.snackBar.open('Project saved.', null, { duration: this.snackBarDuration });
       })
       .catch(err => console.log('error', err));
   }
@@ -97,12 +109,12 @@ export class UploadComponent implements OnInit {
 
     this.dialog.open(UploadDialogComponent, {})
       .afterClosed()
-      .subscribe(publishingDetails =>
+      .subscribe(publishingDetails => {
           this.publishProjectHandler(
             this.token,
             publishingDetails,
-            formDetails));
-
+            formDetails);
+          });
   }
 
   deleteProject(): void {
@@ -115,7 +127,10 @@ export class UploadComponent implements OnInit {
 
   private unpublish(projectID: string) {
     this.firebase
-      .unpublishProject(projectID);
+      .unpublishProject(projectID)
+      .then(() => {
+        this.snackBar.open('Project unpublished.', null, { duration: this.snackBarDuration });
+      });
 
   }
 
@@ -140,7 +155,11 @@ export class UploadComponent implements OnInit {
 
     this.firebase
       .deleteProjects(this.token)
-      .subscribe(() => this.cancel());
+      .subscribe(() => {
+        this.snackBar.open('Project deleted.', null, { duration: this.snackBarDuration });
+
+        this.cancel();
+      });
   }
 
   private publishProjectHandler(projectID: string, publishingDetails, projectInfo): void {
@@ -154,8 +173,8 @@ export class UploadComponent implements OnInit {
         if (!!res) {
           this.router.navigate(['/home/edit', res]);
         }
-      });
 
-      // .subscribe(() => this.cancel());
+        this.snackBar.open('Project published.', null, { duration: this.snackBarDuration });
+      });
   }
 }

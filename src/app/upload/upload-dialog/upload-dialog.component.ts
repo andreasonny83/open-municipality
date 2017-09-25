@@ -11,6 +11,11 @@ import { FirebaseService } from '../../core/firebase.service';
 export class UploadDialogComponent implements OnInit {
   public model;
   public areas: any[];
+  public budgets: any[];
+
+  public get isValid(): boolean {
+    return !!this.model.area && !!this.model.budget;
+  }
 
   constructor(
     public dialogRef: MdDialogRef<UploadDialogComponent>,
@@ -21,20 +26,25 @@ export class UploadDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dialogRef.disableClose = true;
+
     this.model = {
       area: '',
       budget: '',
-      partners: ''
     };
 
     this
       .firebase
-      .fetchAreas()
-      .subscribe(data => {
-        console.log(data);
+      .fetchProjectTags('areas')
+      .subscribe(areas => this.areas = areas);
 
-        this.areas = data;
-      });
+    this
+      .firebase
+      .fetchProjectTags('budgets')
+      .subscribe(budgets => this.budgets = budgets);
+  }
 
+  public publish() {
+    return this.dialogRef.close(this.model);
   }
 }
