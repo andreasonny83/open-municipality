@@ -1,4 +1,5 @@
-<app-toolbar appTitle="{{ appTitle }}"
+<app-toolbar [appTitle]="appTitle"
+             [appVersion]="appVersion"
              (onLogout)="logout()"
              isSignedIn>
 

@@ -1,6 +1,6 @@
 {
   "name": "open-municipality",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Andrea SonnY <andreasonny83@gmail.com>",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "e2e": "ng e2e",
     "serve:dist": "lite-server --baseDir=dist",
     "build:dist": "ng build -prod --aot",
-    "predeploy": "npm run build:dist",
+    "predeploy": "npm version patch && node ./build.js && npm run build:dist",
     "deploy": "firebase deploy",
     "serve:firebase": "firebase serve"
   },
@@ -65,6 +65,7 @@
     "lite-server": "^2.3.0",
     "ngm-cli": "^0.7.0",
     "protractor": "~5.1.2",
+    "replace-in-file": "^3.0.0-beta.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
     "typescript": "~2.3.3"

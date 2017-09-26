@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 /* Routing Module */
 import { AppRoutingModule } from './app.routing';
 
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,7 @@ import { AppRoutingModule } from './app.routing';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule.forRoot({appName: 'Open Municipality'}),
+    CoreModule.forRoot({appName: 'Open Municipality', appVersion: environment.version }),
     AppRoutingModule,
   ],
   providers: [],

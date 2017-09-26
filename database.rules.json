@@ -24,6 +24,7 @@
     },
 
     "published": {
+      ".indexOn": ["author"],
       ".read": "auth != null",
       ".write": "auth != null"
     }

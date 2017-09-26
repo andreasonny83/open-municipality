@@ -6,9 +6,11 @@ import * as firebase from 'firebase/app';
 
 export class AuthServiceConfig {
   appName: string;
+  appVersion: string;
 
   constructor() {
     this.appName = '';
+    this.appVersion = '';
   }
 }
 
@@ -17,6 +19,7 @@ export class AuthService {
   public user: Observable<firebase.User>;
   public userDetails: firebase.User;
   public appName: string;
+  public appVersion: string;
 
   constructor(
     @Optional() config: AuthServiceConfig,
@@ -25,6 +28,7 @@ export class AuthService {
   ) {
     if (config) {
       this.appName = config.appName;
+      this.appVersion = config.appVersion;
     }
 
     this.user = firebaseAuth.authState;

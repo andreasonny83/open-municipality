@@ -17,6 +17,7 @@ interface INavLinks {
 })
 export class HomePageComponent implements OnInit {
   public appTitle: string;
+  public appVersion: string;
   public navLinks: INavLinks[];
   public isUpload: boolean;
 
@@ -38,6 +39,8 @@ export class HomePageComponent implements OnInit {
       });
 
     this.appTitle = auth.appName;
+    this.appVersion = auth.appVersion;
+
     this.navLinks = [
       { link: '/home/workshop', label: 'Workshop' },
       { link: '/home/search', label: 'Search' },

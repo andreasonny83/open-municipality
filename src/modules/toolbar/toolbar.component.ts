@@ -19,6 +19,9 @@ export class ToolbarComponent implements OnInit {
   public appTitle: string;
 
   @Input()
+  public appVersion: string;
+
+  @Input()
   get isSignedIn(): boolean {
     return this._isSignedIn;
   }
