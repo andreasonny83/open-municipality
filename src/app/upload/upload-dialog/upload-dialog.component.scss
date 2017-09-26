@@ -1,4 +1,12 @@
+.dialog-wrapper {
+  max-width: 600px;
+}
+
 .input {
-  width: 75%;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+textarea {
+  resize: none;
 }

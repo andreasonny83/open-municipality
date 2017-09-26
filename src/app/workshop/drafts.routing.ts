@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkshopComponent } from './workshop.component';
 import { DraftsComponent } from './drafts/drafts.component';
+import { SharedComponent } from './shared/shared.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'drafts' },
       { path: 'drafts', component: DraftsComponent },
-      { path: 'shared', component: DraftsComponent },
+      { path: 'shared', component: SharedComponent },
       { path: 'saved', component: DraftsComponent },
     ]
   },

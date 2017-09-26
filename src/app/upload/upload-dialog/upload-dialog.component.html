@@ -1,34 +1,46 @@
-<h2 md-dialog-title>Publish</h2>
+<div class="dialog-wrapper">
+  <h2 md-dialog-title>Publish</h2>
 
-<md-dialog-content>
+  <md-dialog-content>
 
-  <md-select class="input"
-             placeholder="Area"
-             required
-             [(ngModel)]="model.area">
-    <md-option *ngFor="let area of areas"
-               [value]="area.$key">
-      {{ area.label }}
-    </md-option>
-  </md-select>
+    <md-select class="input"
+               placeholder="Area"
+               required
+               [(ngModel)]="model.area">
+      <md-option *ngFor="let area of areas"
+                [value]="area.$key">
+        {{ area.label }}
+      </md-option>
+    </md-select>
 
-  <md-select class="input"
-             placeholder="Budget"
-             required
-             [(ngModel)]="model.budget">
-    <md-option *ngFor="let budget of budgets"
-               [value]="budget.$key">
-      {{ budget.label }}
-    </md-option>
-  </md-select>
+    <md-select class="input"
+               placeholder="Budget"
+               required
+               [(ngModel)]="model.budget">
+      <md-option *ngFor="let budget of budgets"
+                 [value]="budget.$key">
+        {{ budget.label }}
+      </md-option>
+    </md-select>
 
-</md-dialog-content>
+    <md-form-field class="input">
+      <textarea mdInput
+                placeholder="Add a brief description of your project"
+                maxlength="200"
+                rows="5"
+                [(ngModel)]="model.description"
+                required
+                noresize>Project description</textarea>
+    </md-form-field>
 
-<md-dialog-actions>
-  <button md-button
-          md-dialog-close>Cancel</button>
+  </md-dialog-content>
 
-  <button md-button
-          [disabled]="!isValid"
-          (click)="publish()">Continue</button>
-</md-dialog-actions>
+  <md-dialog-actions>
+    <button md-button
+            md-dialog-close>Cancel</button>
+
+    <button md-button
+            [disabled]="!isValid"
+            (click)="publish()">Continue</button>
+  </md-dialog-actions>
+</div>

@@ -5,6 +5,7 @@
   <nav md-tab-nav-bar
        class="content">
     <a md-tab-link
+       class="vertical-aligned"
        *ngFor="let link of navLinks"
        [routerLink]="link.link"
        routerLinkActive #rla="routerLinkActive"
@@ -12,6 +13,11 @@
        [class.active]="rla.isActive">
       {{ link.label.toUpperCase() }}
     </a>
+
+    <button md-button
+            routerLink="/home/upload"
+            class="vertical-aligned btn-upload"
+            color="accent">UPLOAD</button>
   </nav>
 </app-toolbar>
 

@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class FirebaseService {
@@ -24,6 +25,17 @@ export class FirebaseService {
     return this.db.list(`/drafts/${userID}`);
   }
 
+  fetchSharedProjects(): FirebaseListObservable<any[]> {
+    const userID: string = this.authService.userDetails.uid;
+
+    return this.db.list(`/published`, {
+      query: {
+        orderByChild: 'author',
+        equalTo: userID
+      }
+    });
+  }
+
   fetchProject(projectID: string): FirebaseListObservable<any[]> {
     return this.db.list(`/projects/${projectID}`);
   }
@@ -35,6 +47,7 @@ export class FirebaseService {
   saveProject(form: any, projectID?: string): firebase.Promise<string> {
     const userID: string = this.authService.userDetails.uid;
     const status = form.status || 'draft';
+
     const draftInfo = {
       title: form.title,
     };
@@ -48,7 +61,7 @@ export class FirebaseService {
 
     return this
       .createProject(projectInfo, projectID)
-      .then((pID: string) => {
+      .then(pID => {
         projectID = pID;
 
         const calls = [
@@ -57,9 +70,10 @@ export class FirebaseService {
 
         if (status === 'published') {
           calls.push(
-            this.db.list(`/published/${projectID}`).set('title', draftInfo.title),
+            this.db.list(`/published`).update(projectID, draftInfo),
           );
         }
+
         return Observable.forkJoin(...calls);
       })
       .then(() => projectID);
@@ -73,12 +87,23 @@ export class FirebaseService {
     ]);
   }
 
+  fetchProjectDataCreation(projectID) {
+    return this.db.object(`/projects/${projectID}`)
+      .map(data => data.dataCreated);
+  }
+
   publishProject(publishingDetails, projectInfo, projectID: string): firebase.Promise<string> {
     const userID: string = this.authService.userDetails.uid;
+    let dataCreated;
+
+    this.fetchProjectDataCreation(projectID)
+      .toPromise()
+      .then(data => dataCreated = data);
 
     const projectForm = {
       title: projectInfo.title,
       content: projectInfo.content,
+      description: publishingDetails.description,
       status: projectInfo.status,
     };
 
@@ -87,6 +112,7 @@ export class FirebaseService {
       author: userID,
       area: publishingDetails.area,
       budget: publishingDetails.budget,
+      description: publishingDetails.description,
     };
 
     return this
@@ -123,7 +149,10 @@ export class FirebaseService {
   }
 
   private createProject(form, projectID?): firebase.Promise<string> {
+    const dateCreated = firebase.database.ServerValue.TIMESTAMP;
+
     if (!projectID) {
+      form.dateCreated = dateCreated;
       return this.db.list('/projects')
         .push(form)
         .then(pID => pID.key);

@@ -11,11 +11,13 @@ import {
 import { RoutingModule } from './drafts.routing';
 import { WorkshopComponent } from './workshop.component';
 import { DraftsComponent } from './drafts/drafts.component';
+import { SharedComponent } from './shared/shared.component';
 
 @NgModule({
   declarations: [
     WorkshopComponent,
     DraftsComponent,
+    SharedComponent,
   ],
   imports: [
     CommonModule,

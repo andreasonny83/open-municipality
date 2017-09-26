@@ -12,9 +12,12 @@ export class UploadDialogComponent implements OnInit {
   public model;
   public areas: any[];
   public budgets: any[];
+  public description: string;
 
   public get isValid(): boolean {
-    return !!this.model.area && !!this.model.budget;
+    return !!this.model.area &&
+           !!this.model.budget &&
+           !!this.model.description;
   }
 
   constructor(
@@ -31,6 +34,7 @@ export class UploadDialogComponent implements OnInit {
     this.model = {
       area: '',
       budget: '',
+      description: '',
     };
 
     this
